@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Anushri Ji 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff758f;
+            --deep-rose: #c9184a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 35px 25px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; color: var(--deep-rose); font-size: 2.2rem; margin-bottom: 10px; }
+        .sub-text { color: #444; font-size: 0.95rem; margin-bottom: 25px; }
+
+        .btn-container { display: flex; flex-direction: column; gap: 12px; }
+
+        .proposal-btn {
+            background: white;
+            color: var(--deep-rose);
+            border: none;
+            padding: 16px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(201, 24, 74, 0.15);
+            cursor: pointer;
+        }
+
+        .hidden { display: none; }
+        
+        #celebration-text h2 { font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--deep-rose); }
+
+        .flower {
+            position: absolute;
+            top: -50px;
+            z-index: 100;
+            animation: fall linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" crossorigin="anonymous">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="main-card" id="card">
+        <div id="proposal-content">
+            <h1>Anushri ji 💖<br>Kya aap hmari Valentine’s banogi?</h1>
+            <p class="sub-text">Soch lo dhyaan se… kyunki ‘No’ ka option hi nahi hai 😌✨</p>
+            
+            <div class="btn-container">
+                <button class="proposal-btn" onclick="handleAccept()">Ji zaroor 💐</button>
+                <button class="proposal-btn" onclick="handleAccept()">Obviously 😌✨</button>
+                <button class="proposal-btn" onclick="handleAccept()" style="font-size: 0.85rem;">Chalo theek hai daya khake haan keh deti hu 💅😂</button>
+            </div>
+        </div>
+
+        <div id="celebration-text" class="hidden">
+            <h2>Yayyyyyy 🥹💖</h2>
+            <p style="font-size: 1.2rem; color: #d63384; font-weight: 600;">Ab officially tum meri Valentine ho 🌹✨</p>
+            <br>
+            <p style="font-size: 0.85rem; color: #555;">Warning: Ab tumhe roz pyaar, gaane aur attention milega 🎶💞</p>
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+
+        // This function handles both UI and Audio
+        function handleAccept() {
+            // 1. Audio Setup
+            music.src = "https://files.catbox.moe/k366b2.mp3"; // Re-loading the specific song
+            music.load();
+            music.currentTime = 48; 
+            
+            // 2. Play with a user-gesture bypass
+            var playPromise = music.play();
+
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Fallback for strict browsers
+                    console.log("Retrying audio...");
+                    music.play();
+                });
+            }
+
+            // 3. UI Transition
+            document.getElementById('proposal-content').classList.add('hidden');
+            document.getElementById('celebration-text').classList.remove('hidden');
+            document.body.style.background = "radial-gradient(circle, #ffdee9 0%, #b5fffc 100%)";
+
+            // 4. Effects
+            setInterval(createFlower, 150);
+        }
+
+        function createFlower() {
+            const items = ['🌸', '🌹', '✨', '💖', '🎵'];
+            const item = document.createElement('div');
+            item.classList.add('flower');
+            item.innerText = items[Math.floor(Math.random() * items.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.fontSize = '25px';
+            item.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(item);
+            setTimeout(() => item.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
