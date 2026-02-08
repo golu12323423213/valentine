@@ -70,31 +70,35 @@
 </head>
 <body>
 
-    <audio id="bgMusic" crossorigin="anonymous">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+   <audio id="bgMusic" preload="auto">
+    <source src="https://dl.dropboxusercontent.com/scl/fi/f0z9q2w9z7z9z9z9z9z9z/dooron.mp3?rlkey=xyz&dl=1" type="audio/mpeg">
     </audio>
 
-    <div class="main-card" id="card">
-        <div id="proposal-content">
-            <h1>Anushri ji 💖<br>Kya aap hmari Valentine’s banogi?</h1>
-            <p class="sub-text">Soch lo dhyaan se… kyunki ‘No’ ka option hi nahi hai 😌✨</p>
-            
-            <div class="btn-container">
-                <button class="proposal-btn" onclick="handleAccept()">Ji zaroor 💐</button>
-                <button class="proposal-btn" onclick="handleAccept()">Obviously 😌✨</button>
-                <button class="proposal-btn" onclick="handleAccept()" style="font-size: 0.85rem;">Chalo theek hai daya khake haan keh deti hu 💅😂</button>
-            </div>
-        </div>
+<script>
+    function start() {
+        const music = document.getElementById('bgMusic');
+        
+        // Android/Chrome requires a fresh source for the "Force Play" to work sometimes
+        music.src = "https://files.catbox.moe/k366b2.mp3"; 
+        music.load();
+        
+        // Set the time to the 48s mark
+        music.oncanplaythrough = function() {
+            music.currentTime = 48;
+            music.play().catch(e => console.log("Audio play failed"));
+        };
 
-        <div id="celebration-text" class="hidden">
-            <h2>Yayyyyyy 🥹💖</h2>
-            <p style="font-size: 1.2rem; color: #d63384; font-weight: 600;">Ab officially tum meri Valentine ho 🌹✨</p>
-            <br>
-            <p style="font-size: 0.85rem; color: #555;">Warning: Ab tumhe roz pyaar, gaane aur attention milega 🎶💞</p>
-        </div>
-    </div>
+        // Fallback for immediate play
+        music.play();
+        music.currentTime = 48;
 
-    <script>
+        document.getElementById('proposal-content').classList.add('hidden');
+        document.getElementById('celebration-text').classList.remove('hidden');
+        document.body.style.background = "radial-gradient(circle, #ffdee9 0%, #b5fffc 100%)";
+
+        setInterval(createFlower, 150);
+    }
+</script>
         const music = document.getElementById('bgMusic');
 
         // This function handles both UI and Audio
@@ -138,3 +142,4 @@
     </script>
 </body>
 </html>
+
